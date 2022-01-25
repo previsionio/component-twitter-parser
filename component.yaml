@@ -14,12 +14,12 @@ inputs:
   label: Name of the colum with a list of twitter user
   type: String
   description: a username
-  is_property: false
+  is_property: true
 - name: size
   label: nb of tweet to get
   type: Integer
   description: The number of most recent tweet to get for each user when script is launched ( 10 to 100)
-  is_property: false
+  is_property: true
 outputs:
 - name: dst
   type: String

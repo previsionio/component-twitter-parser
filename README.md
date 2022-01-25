@@ -4,7 +4,7 @@ A component that get tweet from a list of twitter username
 
 ## Pre-req
 
-You need a twitter dev account ( or ask for a token )
+You need a [twitter dev account](https://developer.twitter.com/en/portal/projects-and-apps) ( or ask for a twitter bearer token to your coworker )
 
 ## Setup
 

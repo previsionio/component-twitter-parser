@@ -1,0 +1,36 @@
+name: twitter speech scrapper
+label: speechio
+description: From a list of twitter user, you get 
+inputs:
+- name: src
+  type: String
+  description: Path of the local file containing the Input data.
+- name: token
+  label: Twitter bearer Token
+  type: String
+  description: a twitter token
+  is_property: true
+- name: user_col
+  label: Name of the colum with a list of twitter user
+  type: String
+  description: a username
+  is_property: false
+- name: size
+  label: nb of tweet to get
+  type: Integer
+  description: The number of most recent tweet to get for each user when script is launched ( 10 to 100)
+  is_property: false
+outputs:
+- name: dst
+  type: String
+  description: Path to write the output data
+implementation:
+  container:
+    command: [python, /src/main.py]
+    args: [
+      --src, {inputPath: src},
+      --dst, {outputPath: dst}, 
+      --token, {inputValue: token},
+      --user-col, {inputValue: user_col}, 
+      --size, {inputValue: size}
+      ]

@@ -81,11 +81,15 @@ class Twio:
 
 
     def speechof(self, user) :
-        if user.id == -1 :
-            return ""
-        tweets = self.client.get_users_tweets(user.id,max_results=max(10,user.sizeofspeech), exclude="replies,retweets")
-        tweetlist=[tweet(t.id, t.text) for t in tweets.data]
-        return "\n".join([tweet.text for tweet in tweetlist])
+        try :
+            if user.id == -1 :
+                return ""
+            tweets = self.client.get_users_tweets(user.id,max_results=max(10,user.sizeofspeech), exclude="replies,retweets")
+            tweetlist=[tweet(t.id, t.text) for t in tweets.data]
+            return " ".join([tweet.text for tweet in tweetlist])
+        except Exception as e:
+            return ""            
+
 
     def getuser(self,username: str="EmmanuelMacron", sizeofspeech=TWEET_BAG_SIZE) ->Type[user]:
         try:

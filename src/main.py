@@ -13,9 +13,9 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 
-def main(dataframe: pd.DataFrame, token, usercol: str='user',sizeofspeech=10) -> pd.DataFrame:        
+def main(dataframe: pd.DataFrame, token, usercol: str='user', outputcol: str='text',sizeofspeech=10) -> pd.DataFrame:        
     client = twitter.Twio(token)
-    dataframe["speech"] = [client.speechof(client.getuser(twittos,sizeofspeech=sizeofspeech)).replace("\n","") for twittos in df[usercol]]
+    dataframe[outputcol] = [client.speechof(client.getuser(twittos,sizeofspeech=sizeofspeech)).replace("\n","") for twittos in df[usercol]]
     today = datetime.now()
     dataframe["dt"]=str(today)
     dataframe["nboftweet"]=sizeofspeech
@@ -36,6 +36,7 @@ if __name__ == '__main__':
     parser.add_argument('--dst', required=True, type=str, help='Path of the local file for output data.')
     parser.add_argument('--token', required=True, type=str, help='Twitre Bearer Token')
     parser.add_argument('-u', '--user-col', required=False, default="user", type=str, help='Column containing twitter user ( not the username )')
+    parser.add_argument('-o', '--output-col', required=False, default="text", type=str, help='Speech column output name')
     parser.add_argument('-s', '--size', required=False, default=10, type=int, help='Cnb of tweet to get ( 10<s<100 ) ')        
         
 
@@ -45,12 +46,13 @@ if __name__ == '__main__':
     
     # Warning : remember that argparse will convert any - to _ ( https://docs.python.org/dev/library/argparse.html#dest 
     usercol = args.user_col
+    outputcol = args.output_col
     size = args.size
     
     df = pd.read_csv(src)
     token = args.token
     # entry point of your transformation
-    ef = main(df, token, usercol,sizeofspeech=size)
+    ef = main(df, token, usercol,sizeofspeech=size,outputcol=outputcol)
 
     # if you save some data , your component must create the output path
     # Even if a file as pipeline may required to create a temp path

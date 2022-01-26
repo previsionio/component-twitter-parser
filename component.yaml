@@ -15,6 +15,11 @@ inputs:
   type: String
   description: a username
   is_property: true
+- name: output_col
+  label: Name of the colum where to write tweets
+  type: String
+  description: a column name
+  is_property: true  
 - name: size
   label: nb of tweet to get
   type: Integer
@@ -32,5 +37,6 @@ implementation:
       --dst, {outputPath: dst}, 
       --token, {inputValue: token},
       --user-col, {inputValue: user_col}, 
+      --output-col, {inputValue: output_col}, 
       --size, {inputValue: size}
       ]
